@@ -1,0 +1,510 @@
+html,
+body {
+    height: 100%;
+}
+
+.wrap {
+    min-height: 100%;
+    height: auto;
+    margin: 0 auto -60px;
+    padding: 0 0 60px;
+}
+
+.wrap > .container {
+    padding: 70px 15px 20px;
+}
+
+.footer {
+    height: 60px;
+    background-color: #f5f5f5;
+    border-top: 1px solid #ddd;
+    padding-top: 20px;
+}
+
+.jumbotron {
+    text-align: center;
+    background-color: transparent;
+}
+
+.jumbotron .btn {
+    font-size: 21px;
+    padding: 14px 24px;
+}
+
+.not-set {
+    color: #c55;
+    font-style: italic;
+}
+
+.register-page, .login-page-admin{
+    background: url("../images/login.jpg") no-repeat center center;
+    background-size: cover;
+    color: #FFF;
+}
+
+.navbar-nav>.user-menu>.dropdown-menu>li.user-header{
+    height: auto!important;
+}
+
+.dropdown-menu.empresas{
+    width: auto!important;
+}
+
+.empresas .menu>li>a{
+    display: inline-flex!important;
+    width: 100%;
+}
+
+.login-page:after{
+    content: '';
+    background-color: rgba(164, 209, 231, 0.6);
+    height: 100%;
+    width: 100%;
+    display: inline-block;
+    z-index: 1;
+    position: absolute;
+    top: 0;
+}
+
+.login-page-admin:after{
+    content: '';
+    background-color: rgba(38, 50, 56, .6);
+    height: 100%;
+    width: 100%;
+    display: inline-block;
+    z-index: 1;
+    position: absolute;
+    top: 0;
+}
+
+.login-page {
+    height: 100%;
+    overflow: hidden;
+}
+
+.login-page-admin {
+    height: 100%;
+    overflow: hidden;
+}
+
+.login-page .page-brand-info {
+    padding: 90px 0 0 90px;
+    z-index: 2;
+    position: relative;
+}
+
+.login-page-admin .page-brand-info {
+    padding: 90px 0 0 90px;
+    z-index: 2;
+    position: relative;
+}
+
+.login-page .page-brand-info .brand-img {
+    vertical-align: middle;
+}
+.login-page-admin .page-brand-info .brand-img {
+    vertical-align: middle;
+}
+
+.login-page .page-brand-info .brand-text {
+    display: inline-block;
+    margin: 11px 0 11px 20px;
+    vertical-align: middle;
+}
+.login-page-admin .page-brand-info .brand-text {
+    display: inline-block;
+    margin: 11px 0 11px 20px;
+    vertical-align: middle;
+}
+
+.login-page .page-brand-info p {
+    max-width: 650px;
+    opacity: .6;
+    font-size: 20px;
+    color: #fff;
+
+}
+.login-page-admin .page-brand-info p {
+    max-width: 650px;
+    opacity: .6;
+    font-size: 20px;
+    color: #fff;
+
+}
+
+.login-page .page-login-main {
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 470px;
+    height: auto;
+    min-height: 100%;
+    padding: 150px 60px 180px;
+    color: #76838f;
+    background: #fff;
+    z-index: 2;
+}
+
+.login-page-admin .page-login-main {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: auto;
+    min-height: 100%;
+    padding: 150px 60px 180px;
+    color: #76838f;
+    background: #fff;
+    z-index: 2;
+}
+
+.login-page .page-login-main .brand {
+    margin-bottom: 60px;
+}
+.login-page-admin .page-login-main .brand {
+    margin-bottom: 60px;
+}
+
+.login-page .page-login-main .brand-img {
+    vertical-align: middle;
+}
+.login-page-admin .page-login-main .brand-img {
+    vertical-align: middle;
+}
+
+.login-page .page-login-main .brand-text {
+    display: inline-block;
+    margin: 11px 0 11px 20px;
+    color: #3e8ef7;
+    vertical-align: middle;
+}
+.login-page-admin .page-login-main .brand-text {
+    display: inline-block;
+    margin: 11px 0 11px 20px;
+    color: #3e8ef7;
+    vertical-align: middle;
+}
+
+.login-page form {
+    width: 350px;
+    margin: 45px 0 20px;
+}
+.login-page-admin form {
+    width: 350px;
+    margin: 45px 0 20px;
+}
+
+.login-page form > button {
+    margin-top: 38px;
+}
+.login-page-admin form > button {
+    margin-top: 38px;
+}
+
+.login-page form a {
+    margin-left: 20px;
+}
+.login-page-admin form a {
+    margin-left: 20px;
+}
+
+.login-page footer {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: 50px 60px;
+    text-align: center;
+}
+.login-page-admin footer {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: 50px 60px;
+    text-align: center;
+}
+
+.login-page .social .icon, .login-page .social .icon:hover, .login-page .social .icon:active {
+    color: #fff;
+}
+
+.login-page-admin .social .icon, .login-page-admin .social .icon:hover, .login-page-admin .social .icon:active {
+    color: #fff;
+}
+
+/* add sorting icons to gridview sort links */
+a.asc:after, a.desc:after {
+    position: relative;
+    top: 1px;
+    display: inline-block;
+    font-family: 'Glyphicons Halflings';
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1;
+    padding-left: 5px;
+}
+
+a.asc:after {
+    content: /*"\e113"*/ "\e151";
+}
+
+a.desc:after {
+    content: /*"\e114"*/ "\e152";
+}
+
+.sort-numerical a.asc:after {
+    content: "\e153";
+}
+
+.sort-numerical a.desc:after {
+    content: "\e154";
+}
+
+.sort-ordinal a.asc:after {
+    content: "\e155";
+}
+
+.sort-ordinal a.desc:after {
+    content: "\e156";
+}
+
+.grid-view th {
+    white-space: nowrap;
+}
+
+.hint-block {
+    display: block;
+    margin-top: 5px;
+    color: #999;
+}
+
+.error-summary {
+    color: #a94442;
+    background: #fdf7f7;
+    border-left: 3px solid #eed3d7;
+    padding: 10px 20px;
+    margin: 0 0 15px 0;
+}
+
+/* align the logout "link" (button in form) of the navbar */
+.nav li > form > button.logout {
+    padding: 15px;
+    border: none;
+}
+
+@media(max-width:767px) {
+    .nav li > form > button.logout {
+        display:block;
+        text-align: left;
+        width: 100%;
+        padding: 10px 15px;
+    }
+}
+
+.nav > li > form > button.logout:focus,
+.nav > li > form > button.logout:hover {
+    text-decoration: none;
+}
+
+.nav > li > form > button.logout:focus {
+    outline: none;
+}
+
+.ui-datepicker{
+    width: auto!important;
+}
+
+.chart-container {
+    width: 50%;
+    display: inline-block;
+}
+
+.kv-drp-container{
+    background: #fff;
+}
+
+.site-request-password-reset{
+    background: #FFF;
+    z-index: 99;
+    position: relative;
+    color: #000;
+    display: block;
+    width: 50%;
+    margin: 10px auto 0px auto;
+    text-align: center;
+}
+
+.site-request-password-reset h1{
+    padding: 20px 0 0 0;
+}
+
+.site-request-password-reset form{
+    width: auto;
+    margin: 15px;
+}
+
+.alert.alert-danger span{
+    font-weight: bold;
+    margin: 0 15px 0 0;
+}
+
+.brand-img {
+    width: 72px;
+    height: 72px;
+}
+
+.empresas h6 {
+    color: #3c8dbc;
+}
+
+
+
+@media (min-width: 992px) {
+    .login-page .page-content {
+        padding-right: 500px;
+    }
+    .login-page-admin .page-content {
+        padding-right: 500px;
+    }
+}
+
+@media (max-width: 991px) {
+    .login-page .page-login-main {
+        padding-top: 60px;
+    }
+    .login-page-admin .page-login-main {
+        padding-top: 60px;
+    }
+
+    .pessoa-form-total{
+        padding: 0 15px;
+    }
+
+    .anexo-unico-pessoa{
+        margin: 0;
+        text-align: center;
+        display: block;
+    }
+
+    #progress-unico{
+        margin: 0 auto;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    .login-page .page-login-main {
+        padding-top: 80px;
+    }
+    .login-page-admin .page-login-main {
+        padding-top: 80px;
+    }
+
+    .login-page .page-brand-info {
+        margin: 160px 0 0 35px;
+    }
+    .login-page-admin .page-brand-info {
+        margin: 160px 0 0 35px;
+    }
+
+    .login-page .page-brand-info > p {
+        color: transparent;
+        opacity: 0;
+    }
+    .login-page-admin .page-brand-info > p {
+        color: transparent;
+        opacity: 0;
+    }
+}
+
+@media (max-width: 767px) {
+    .login-page .page-login-main {
+        width: 100%;
+        padding-top: 60px;
+    }
+    .login-page-admin .page-login-main {
+        width: 100%;
+        padding-top: 60px;
+    }
+
+    .login-page form {
+        width: auto;
+    }
+    .login-page-admin form {
+        width: auto;
+    }
+    .alterar-condominio{
+        right: 10px;
+        top: -50px;
+    }
+
+    .table-responsive{
+        margin: 0;
+    }
+
+    .table-responsive > .table > thead > tr > th, .table-responsive > .table > tbody > tr > th, .table-responsive > .table > tfoot > tr > th, .table-responsive > .table > thead > tr > td, .table-responsive > .table > tbody > tr > td, .table-responsive > .table > tfoot > tr > td{
+        white-space: pre-wrap;
+    }
+
+    .panel > .table-responsive{
+        overflow-x: auto!important;
+    }
+
+}
+
+@media (max-width: 479px) {
+    .login-page .page-brand-info {
+        margin: 220px 0 0;
+    }
+    .login-page-admin .page-brand-info {
+        margin: 220px 0 0;
+    }
+
+    .login-page .page-login-main {
+        padding: 50px 30px 180px;
+    }
+    .login-page-admin .page-login-main {
+        padding: 50px 30px 180px;
+    }
+
+    .login-page form {
+        width: auto;
+    }
+    .login-page-admin form {
+        width: auto;
+    }
+
+    .login-page footer {
+        margin: 50px 30px;
+    }
+    .login-page-admin footer {
+        margin: 50px 30px;
+    }
+    .navbar-custom-menu>.navbar-nav>li>.dropdown-menu{
+        right: 0;
+    }
+    .navbar-nav>.notifications-menu>.dropdown-menu, .navbar-nav>.messages-menu>.dropdown-menu, .navbar-nav>.tasks-menu>.dropdown-menu{
+        width: 100%;
+    }
+
+    .icones-dashboard{
+        justify-content: center;
+    }
+
+    .alterar-condominio{
+        position: initial;
+        float: right;
+        text-align: right;
+        /* margin-right: 15px; */
+        width: 160px;
+        overflow-x: hidden;
+    }
+
+    .content-header{
+        padding: 50px 15px 0 15px;
+    }
+
+    .timeline .timeline-item:after{
+        min-width: 200px;
+    }
+}
