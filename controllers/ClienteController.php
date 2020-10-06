@@ -69,7 +69,9 @@ class ClienteController extends PrincipalController
                 } else {
                     $model->generateAuthKey();
                     if ($model->save()){
-                        return $this->redirect(['index']);
+
+                        Yii::$app->user->login($model);
+                        return $this->goHome();
                     }
                 }
             }

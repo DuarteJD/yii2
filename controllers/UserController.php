@@ -73,19 +73,7 @@ class UserController extends PrincipalController
             if ($verificar ){      
                 
                 Yii::$app->session->setFlash('Criar', '<p class="alert alert-danger"><span><i class="icon fa fa-warning"></i> Alerta!</span>Não foi possivel criar este registro, ele está relacionado a outros dados</p>');
-/*
-Envio de e-mail
-                $message = Yii::$app->mailer->compose();
-                if (Yii::$app->user->isGuest) {
-                    $message->setFrom('julio@saviolli.com');
-                } else {
-                    $message->setFrom(Yii::$app->user->identity->email);
-                }
-                $message->setTo($model->email)
-                    ->setSubject('ClientPro')
-                    ->setTextBody('Você foi vinculado à uma NOVA empresa em nosso sistema!')
-                    ->send();
-*/
+
                 return $this->redirect(['index']);
             }
             else{

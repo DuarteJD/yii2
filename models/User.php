@@ -22,6 +22,7 @@ use \yii\behaviors\TimestampBehavior;
  * @property string $access_token
  * @property string $cpf
  * @property int $status
+ * @property string $passwordResetTokenExpire
  */
 
 class User extends PrincipalModel implements IdentityInterface
@@ -58,7 +59,7 @@ class User extends PrincipalModel implements IdentityInterface
             [['username'], 'string', 'max' => 150],
             [['passwordHash'], 'string', 'max' => 45],
             [['access_token'], 'string', 'max' => 255],
-            [['access_token', 'passwordResetToken'], 'safe'],
+            [['access_token', 'passwordResetToken', 'passwordResetTokenExpire'], 'safe'],
             [['username'], 'unique'],
         ];
     }
@@ -86,6 +87,7 @@ class User extends PrincipalModel implements IdentityInterface
         unset($fields['authKey']);
         unset($fields['passwordHash']);
         unset($fields['passwordResetToken']);
+        unset($fields['passwordResetTokenExpire']);
         return $fields;
     }
 

@@ -6,8 +6,6 @@ use dosamigos\chartjs\ChartJs;
 use kartik\daterange\DateRangePicker;
 use yii\widgets\ActiveForm;
 
-/* @var $this yii\web\View */
-
 $this->title = '';
 ?>
 <div class="site-index">
@@ -34,13 +32,12 @@ $this->title = '';
                         'convertFormat'=>true,
                         'pluginOptions'=>[
                             'locale'=>[
-                                'format'=> 'Y-m-d',
+                                'format'=> 'd-m-Y',
                                 'separator'=>' até ',
                             ],
                             'opens'=>'left'
                         ]
                     ])->label(false);
-
 
                     ActiveForm::end();
                     ?>
@@ -84,8 +81,8 @@ $this->title = '';
             <div class="info-box bg-yellow">
                 <span class="info-box-icon"><i class="fa fa-calendar"></i></span>
                 <div class="info-box-content">
-                    <span class="info-box-text">Finalizados</span>
-                    <span class="info-box-number"><?= $qtde_finalizados ?></span>
+                    <span class="info-box-text">Em separação</span>
+                    <span class="info-box-number"><?= $qtde_separacao ?></span>
                     <div class="progress">
                         <div class="progress-bar" style="width: 100%"></div>
                     </div>
@@ -100,7 +97,7 @@ $this->title = '';
                 <span class="info-box-icon"><i class="fa fa-comments-o"></i></span>
 
                 <div class="info-box-content">
-                    <span class="info-box-text">Taxa de conversão</span>
+                    <span class="info-box-text">Finalizados</span>
                     <span class="info-box-number"><?= $taxa_conversao ?>%</span>
 
                     <div class="progress">
@@ -112,16 +109,13 @@ $this->title = '';
         </div>
     </div>
 
-    <?php /*
+    
     <div class="row">
         <div class="col-md-12">
             
             <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs">
-                    <li class="active"><a href="#tab_1" data-toggle="tab" aria-expanded="true">Departamentos</a></li>
-                    <li class=""><a href="#tab_2" data-toggle="tab" aria-expanded="false">Setores</a></li>
-                    <li class=""><a href="#tab_3" data-toggle="tab" aria-expanded="false">Sexo</a></li>
-                    <li class=""><a href="#tab_4" data-toggle="tab" aria-expanded="false">Atendente</a></li>
+                    <li class="active"><a href="#tab_1" data-toggle="tab" aria-expanded="true">Pedidos no período</a></li>                    
                 </ul>
 
                 <div class="tab-content">
@@ -131,165 +125,21 @@ $this->title = '';
                             <?php
 
                             echo GridView::widget([
-                                'dataProvider' => $dataProviderDepartamento,
+                                'dataProvider' => $dataProviderPedido,
                                 'layout' => "{items}\n{summary}\n{pager}",
                                 'columns' => [
-                                    'departamento_nome',
-                                    'qtde_atendimentos',
-                                    'compraram',
-                                    'oportunidades',
-                                    [
-                                        'attribute' => 'taxa_conversao',
-                                        'value' => function($model){
-                                            return $model->getTaxaConversao();
-                                        }
-                                    ]
+                                    'id',
+                                    'data_pedido',
+                                    'cliente',
+                                    'valor_total',                                    
+                                    'status',                                    
                                 ],
                             ]);
                             ?>
                         </div>
-                    </div>
-                    <div class="tab-pane" id="tab_2">
-                        <div class="box-header">
-<!--                            <h3 class="box-title">Setores mais buscados</h3>-->
-                        </div>
-                        <div class="box-body table-responsive no-padding">
-                            <?php
-                                echo GridView::widget([
-                                    'dataProvider' => $dataProviderSetores,
-                                    'layout' => "{items}\n{summary}\n{pager}",
-                                    'columns' => [
-                                        'setores_nome',
-                                        'qtde_atendimentos',
-                                        'compraram',
-                                        'oportunidades',
-                                        [
-                                            'attribute' => 'taxa_conversao',
-                                            'value' => function($model){
-                                                return $model->getTaxaConversao();
-                                            }
-                                        ]
-                                    ],
-                                ]);
-                            ?>
-                        </div>
-                    </div>
-
-                    <div class="tab-pane" id="tab_3">
-                        <div class="box-header">
-                            <!--                            <h3 class="box-title">Setores mais buscados</h3>-->
-                        </div>
-                        <div class="box-body table-responsive no-padding">
-                            <?php
-                            echo GridView::widget([
-                                'dataProvider' => $dataProviderSexo,
-                                'layout' => "{items}\n{summary}\n{pager}",
-                                'columns' => [
-                                    [
-                                        'attribute' => 'sexo',
-                                        'value' => function($model){
-                                            if($model->sexo == 2){
-                                                return 'Mulheres';
-                                            }else{
-                                                return 'Homens';
-                                            }
-                                        }
-                                    ],
-                                    'qtde_atendimentos',
-                                    'compraram',
-                                    'oportunidades',
-                                    [
-                                        'attribute' => 'taxa_conversao',
-                                        'value' => function($model){
-                                            return $model->getTaxaConversao();
-                                        }
-                                    ]
-                                ],
-                            ]);
-                            ?>
-                        </div>
-                    </div>
-
-                    <div class="tab-pane" id="tab_4">
-
-                        <div class="box-header">
-                            <!--                            <h3 class="box-title">Setores mais buscados</h3>-->
-                        </div>
-                        <div class="box-body table-responsive no-padding">
-                            <?php
-                            echo GridView::widget([
-                                'dataProvider' => $dataProviderAtendentes,
-                                'layout' => "{items}\n{summary}\n{pager}",
-                                'columns' => [
-                                    'usuario_nome',
-                                    'qtde_atendimentos',
-                                    'compraram',
-                                    'oportunidades',
-                                    [
-                                        'attribute' => 'taxa_conversao',
-                                        'value' => function($model){
-                                            return $model->getTaxaConversao();
-                                        }
-                                    ],
-                                    'ultima_sincronizacao:datetime'
-                                ],
-                            ]);
-                            ?>
-                        </div>
-
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    */
-    ?>
-
-    <div class="row">
-        <div class="col-md-12">
-            <div class="box text-center">
-                <div class="chart-container">
-                    <?= ChartJs::widget([
-
-                        'type' => 'bar',
-                        'options' => [
-                            'maintainAspectRatio' => true,
-                            'responsive' => true,
-                        ],
-                        'data' => [
-                            'labels' => $grafico['labels'],
-                            'datasets' => [
-                                [
-                                    'label' => "Pedidos",
-                                    'backgroundColor' => "rgba(0, 85, 155, 0.2)",
-                                    'borderColor' => "rgba(0, 85, 155, 0.8)",
-                                    'data' => $grafico['atendimentos']
-                                ],
-                                [
-                                    'label' => "Finalizados",
-                                    'backgroundColor' => "rgba(11, 122, 10, 0.6)",
-                                    'borderColor' => "rgba(11, 122, 10, 1)",
-                                    'data' => $grafico['finalizados']
-                                ]
-                            ]
-                        ],
-                        'clientOptions' => [
-                            'scales' => [
-                                'yAxes' => [
-                                    [
-                                        'ticks' => [
-                                            'beginAtZero' => true
-                                        ]
-                                    ]
-                                ]
-                            ]
-                        ]
-                    ]);
-                    ?>
-
-                </div>
-            </div>
-        </div>
-    </div>
-
 </div>
