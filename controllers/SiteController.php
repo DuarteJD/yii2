@@ -59,25 +59,40 @@ class SiteController extends PrincipalController
     {
         if (!Yii::$app->user->isGuest) {
             $user = User::findOne(Yii::$app->user->getId());
+
             if($user->cliente === 0) {
 
                 $dashboardForm = new DashboardForm();
-                $dashboardForm->inicio = date('Y-m-d 00:01:00');
-                $dashboardForm->fim = date('Y-m-d 23:59:00');
+                $dashboardForm->inicio = date('Y-m-d');
+                $dashboardForm->fim = date('Y-m-d');
                 $dashboardForm->load(Yii::$app->request->post());
+
+                if(!Yii::$app->request->post()) {
+                    $datainisession = Yii::$app->session->get('data_inicial');
+                    $datafimsession = Yii::$app->session->get('data_final');
+                    if($datainisession) {
+                        $dashboardForm->inicio = $datainisession;
+                        $dashboardForm->fim = $datafimsession;
+                    }
+                }
+
+                $dashboardForm->inicio_fim = $dashboardForm->inicio . ' Até ' . $dashboardForm->fim;
+
+                if(Yii::$app->request->post()) {
+                    Yii::$app->session->set('data_inicial', $dashboardForm->inicio);
+                    Yii::$app->session->set('data_final', $dashboardForm->fim);
+                }
                 
 
-                $qtde_pedidos = Pedido::find()->where(['and', "data_pedido>='$dashboardForm->inicio'", "data_pedido<='$dashboardForm->fim'"])->count('id');
-                $qtde_pendentes = Pedido::find()->where(['and', "data_pedido>='$dashboardForm->inicio'", "data_pedido<='$dashboardForm->fim'"])->andWhere(['status' => 0])->count('id');
-                $qtde_separacao = Pedido::find()->where(['and', "data_pedido>='$dashboardForm->inicio'", "data_pedido<='$dashboardForm->fim'"])->andWhere(['status' => 1])->count('id');
-                $qtde_prontos = Pedido::find()->where(['and', "data_pedido>='$dashboardForm->inicio'", "data_pedido<='$dashboardForm->fim'"])->andWhere(['status' => 2])->count('id');
-                $taxa_conversao = ($qtde_prontos * 100) / $qtde_pedidos;
-
-                $grafico = [
-                    'labels' => "Nome",
-                    'atendimentos' => 5,
-                    'finalizados' => 1
-                ];
+                $qtde_pedidos = Pedido::find()->where(['and', "data_pedido>='".$dashboardForm->inicio." 00:01:00'", "data_pedido <= '".$dashboardForm->fim." 23:59:59'"])->count('id');
+                $qtde_pendentes = Pedido::find()->where(['and', "data_pedido>='".$dashboardForm->inicio." 00:01:00'", "data_pedido <= '".$dashboardForm->fim." 23:59:59'"])->andWhere(['status' => 0])->count('id');
+                $qtde_separacao = Pedido::find()->where(['and', "data_pedido>='".$dashboardForm->inicio." 00:01:00'", "data_pedido <= '".$dashboardForm->fim." 23:59:59'"])->andWhere(['status' => 1])->count('id');
+                $qtde_prontos = Pedido::find()->where(['and', "data_pedido>='".$dashboardForm->inicio." 00:01:00'", "data_pedido <= '".$dashboardForm->fim." 23:59:59'"])->andWhere(['status' => 3])->count('id');
+                $taxa_conversao = 0;
+                
+                if($qtde_pedidos > 0) {
+                    $taxa_conversao = ($qtde_prontos * 100) / $qtde_pedidos;
+                } 
 
                 $queryPedido = Pedido::find()
                     ->select([
@@ -88,7 +103,7 @@ class SiteController extends PrincipalController
                         'pedido.status as status'
                     ])
                     ->joinWith('cliente', true, 'INNER JOIN')
-                    ->where(['and', "data_pedido>='$dashboardForm->inicio'", "data_pedido<='$dashboardForm->fim'"]);
+                    ->where(['and', "data_pedido >= '".$dashboardForm->inicio." 00:01:00'", "data_pedido <= '".$dashboardForm->fim." 23:59:59'"]);
                                                
 
                 $dataProviderPedido = new ActiveDataProvider([
@@ -103,14 +118,42 @@ class SiteController extends PrincipalController
                     'qtde_pendentes' => $qtde_pendentes,
                     'qtde_separacao' => $qtde_separacao,
                     'taxa_conversao' => $taxa_conversao,
-                    'dashboardForm' => $dashboardForm,
-                    'grafico' => $grafico,
+                    'dashboardForm' => $dashboardForm,                    
                     'dataProviderPedido' => $dataProviderPedido,
                 ]);
             }
 
         }
         return $this->render('index');
+    }
+
+    public function actionInvoice($id)
+    {
+        if($id) {
+            $pedido = Pedido::findOne(['id' => $id]);            
+            if($pedido) {                                
+                return $this->render('invoice', [
+                    'model' => $pedido,
+                ]);
+            }
+        }        
+        return $this->redirect(['site/index']);
+    }
+
+    public function actionAlterarStatusPedido($id)
+    {
+        if($id) {
+            $pedido = Pedido::findOne(['id' => $id]);            
+            if($pedido) {                                
+                if ($pedido->status < 3) {                    
+                    $pedido->status += 1;
+                    if(!$pedido->save()) {
+                        print_r($pedido->errors);
+                    };                    
+                }
+            }
+        }        
+        return $this->redirect(['site/index']);
     }
         
     public function actionCadastro()

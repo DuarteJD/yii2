@@ -15,12 +15,13 @@ use Yii;
  * @property int $status 
  * @property int $supermercado_id 
  *
- * @property Usuario $cliente
+ * @property User $cliente
  * @property Supermercado $supermercado
  * @property PedidoHasProduto[] $pedidoHasProdutos
  */
-class Pedido extends PrincipalModel
-{
+class Pedido extends \yii\db\ActiveRecord {
+
+    public $cliente;
     
     public static function tableName()
     {
@@ -35,11 +36,11 @@ class Pedido extends PrincipalModel
     public function rules()
     {
         return [
-            [['data_pedido', 'cliente_id', 'valor_total', 'data_retirada', 'status', 'supermercado_id'], 'required'],
+            [['data_pedido', 'cliente_id', 'valor_total', 'status', 'supermercado_id'], 'required'],
             [['data_pedido', 'data_retirada'], 'safe'],
             [['cliente_id', 'status', 'supermercado_id'], 'integer'],
             [['valor_total'], 'string', 'max' => 45],
-            [['cliente_id'], 'exist', 'skipOnError' => true, 'targetClass' => Cliente::className(), 'targetAttribute' => ['cliente_id' => 'id']],
+            [['cliente_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['cliente_id' => 'id']],
             [['supermercado_id'], 'exist', 'skipOnError' => true, 'targetClass' => Supermercado::className(), 'targetAttribute' => ['supermercado_id' => 'id']],
         ];
     }
@@ -56,6 +57,27 @@ class Pedido extends PrincipalModel
             'status' => 'Status',
             'supermercado_id' => 'Loja',
         ];
+    }
+
+    public function getStatusPedido()
+    {
+        $string = '';
+        switch($this->status) {
+            case 0:
+                $string = 'Pendente';
+                break;  
+            case 1:
+                $string = 'Em separação';
+                break;  
+            case 2:
+                $string = 'Separado';
+                break;
+            case 3:
+                $string = 'Entregue';
+                break;
+        }
+        
+        return $string;
     }
 
     public function getCliente()

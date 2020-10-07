@@ -6,7 +6,6 @@ use yii\helpers\Html;
 /* @var $model app\models\Usuario */
 
 $this->title = 'Atualizar Usuário:'. $model->nome;
-$this->params['breadcrumbs'][] = ['label' => 'Usuários', 'url' => ['index']];
 $this->params['breadcrumbs'][] = 'Atualizar';
 ?>
 <div class="usuario-update">
